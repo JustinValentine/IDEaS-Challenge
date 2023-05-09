@@ -25,7 +25,7 @@ services:
       - ~/.Xauthority:/root/.Xauthority
       - ./launch/camera.launch:/root/catkin_ws/camera.launch
 
-  remoteDriving:
+  remote_driving:
     build: .
     depends_on:
       - master
