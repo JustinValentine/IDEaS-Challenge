@@ -20,10 +20,9 @@ class ControlCenter:
         self.subs = rospy.Subscriber(f"/cam0/image_raw/compressed", CompressedImage, self.callback)
         
 
-    def callback(cam0_image_compressed):
+    def callback(self, compressed):
         # Convert compressed image to OpenCV format
-        np_arr = np.fromstring(cam0_image_compressed.data, np.uint8)
-        cam0_image_cv = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        cam0_image_cv = self.bridge.compressed_imgmsg_to_cv2(compressed)
 
         # Display the image
         cv2.imshow('cam0_image', cam0_image_cv)
