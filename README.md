@@ -1,4 +1,4 @@
-# Visual Servoing
+# IDEaS Challenge 
 
 
 # Usage
