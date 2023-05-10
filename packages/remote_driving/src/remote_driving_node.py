@@ -16,7 +16,6 @@ class ControlCenter:
         self.args = rospy.get_param('~args', [])
 
         self.bridge = CvBridge()
-        self.raw_images = None
 
         self.subs = rospy.Subscriber(f"/cam0/image_raw/compressed", CompressedImage, self.callback)
         
