@@ -22,29 +22,16 @@ class ControlCenter:
 
     def callback(self, compressed):
         # Convert compressed image to OpenCV format
-        cam0_image_cv = self.bridge.compressed_imgmsg_to_cv2(compressed.data)
-        print('work?')
+        cam0_image_cv = self.bridge.compressed_imgmsg_to_cv2(compressed)
 
-        # # Display the image
-        # cv2.imshow('cam0_image', cam0_image_cv)
-        # cv2.waitKey(1)
-
-
-    def run(self):
-        rate = rospy.Rate(self.rate)
-
-        while not rospy.is_shutdown():
-            rate.sleep()
-            if self.raw_images is None:
-                continue
-            state = self.perception.get_state(self.raw_images)
-            self.publish_state(state)
+        # Display the image
+        cv2.imshow('cam0_image', cam0_image_cv)
+        cv2.waitKey(1)
             
 
 def main():
     rospy.init_node('remote_driving_node')
     node = ControlCenter()
-    node.run()
     rospy.spin()
 
 
