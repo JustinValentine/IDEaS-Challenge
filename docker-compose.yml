@@ -17,7 +17,7 @@ services:
       - master
     environment:
       DISPLAY: $DISPLAY
-    command: roslaunch --wait camera.launch name:=cam0 video_device:=/dev/video1
+    command: roslaunch --wait camera.launch name:=cam0 video_device:=/dev/video0
     network_mode: host
     privileged: true
     volumes:
