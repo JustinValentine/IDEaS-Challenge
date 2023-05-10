@@ -3,7 +3,7 @@
   <arg name="type" default="packages/remote_driving" />
   <arg name="args" default="[]" />
 
-  <node name="remote_driving_node" pkg="remote_driving" type="packages/remote_driving_node.py" output="screen" >
+  <node name="remote_driving_node" pkg="packages/remote_driving" type="remote_driving_node.py" output="screen" >
       <param name="rate" value="$(arg rate)"></param>
       <param name="type" value="$(arg type)"></param>
       <rosparam param="args" subst_value="True">$(arg args)</rosparam>
