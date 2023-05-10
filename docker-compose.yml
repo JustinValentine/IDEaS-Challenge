@@ -38,5 +38,5 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
-      - ./control:/root/catkin_ws/src/control
-      - ./launch/control.launch:/root/catkin_ws/control.launch
+      - ./packages/remote_driving:/root/catkin_ws/src/remote_driving
+      - ./launch/remote_driving.launch:/root/catkin_ws/remote_driving.launch
