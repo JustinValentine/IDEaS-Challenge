@@ -23,6 +23,7 @@ class ControlCenter:
     def callback(self, compressed):
         # Convert compressed image to OpenCV format
         cam0_image_cv = self.bridge.compressed_imgmsg_to_cv2(compressed)
+        print('test')
 
         # Display the image
         cv2.imshow('cam0_image', cam0_image_cv)
