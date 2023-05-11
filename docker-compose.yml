@@ -16,15 +16,17 @@ services:
       - ./packages/remote_driving:/root/catkin_ws/src/remote_driving
       - ./launch/remote_driving.launch:/root/catkin_ws/remote_driving.launch
 
-  node_creator:
+  teleop:
     build: .
-    command: python3 /scripts/node_creator.py
-    network_mode: host
+    command: roslaunch teleop.launch
     environment:
       DISPLAY: $DISPLAY
       PYTHONUNBUFFERED: 1
       # Set ROS environment variables for the remote master
       ROS_MASTER_URI: ${ROS_MASTER_URI_SET}
       ROS_IP: ${ROS_IP_SET}
+    network_mode: host
+    privileged: true
     volumes:
-      - ./scripts:/scripts
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
