@@ -27,3 +27,4 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
+      - /dev/input/ps4:/dev/input/ps4
