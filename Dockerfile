@@ -3,8 +3,14 @@ FROM osrf/ros:noetic-desktop-full
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y ros-${ROS_DISTRO}-cv-bridge ros-${ROS_DISTRO}-image-transport ros-${ROS_DISTRO}-husky-control
+RUN apt-get update && apt-get install -y \
+    ros-${ROS_DISTRO}-cv-bridge \
+    ros-${ROS_DISTRO}-image-transport \
+    ros-${ROS_DISTRO}-usb-cam \
+    ros-${ROS_DISTRO}-husky-control
 
+# Source the ROS workspace
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash"
 
 ENV WS=/root/catkin_ws
 RUN mkdir -p ${WS}/src
