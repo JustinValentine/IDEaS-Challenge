@@ -36,13 +36,12 @@ class ControlCenter:
         ]
 
         if len(self.raw_images) == 2:
-            stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
-            disparity = stereo.compute(self.raw_images[0], self.raw_images[1])
+            # stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
+            # disparity = stereo.compute(self.raw_images[0], self.raw_images[1])
 
-            concat_image = cv2.hconcat([self.raw_images[0], self.raw_images[1]])
-
-            cv2.imshow('Camera-Veiws', concat_image)
-            cv2.imshow('Depth-Map', disparity)
+            cv2.imshow('cam0', self.raw_images[0])
+            cv2.imshow('cam1', self.raw_images[1])
+            # cv2.imshow('Depth-Map', disparity)
             cv2.waitKey(1)
 
     def on_shutdown(self):
