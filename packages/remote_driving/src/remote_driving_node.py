@@ -38,8 +38,8 @@ class ControlCenter:
 
         if len(self.raw_images) == 2:
             # Convert source image to unsigned 8 bit integer Numpy array
-            L = np.uint8(self.raw_images[1])
-            R = np.uint8(self.raw_images[0])
+            L = cv2.cvtColor(self.raw_images[1], cv2.COLOR_BGR2GRAY)
+            R = cv2.cvtColor(self.raw_images[0], cv2.COLOR_BGR2GRAY)
 
             stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
             disparity = stereo.compute(L, R)
