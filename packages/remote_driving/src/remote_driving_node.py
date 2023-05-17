@@ -41,9 +41,10 @@ class ControlCenter:
             # cv2.imshow('depth', disparity)
 
             print(len(self.raw_images))
+            concat_image = cv2.hconcat([self.raw_images[0], self.raw_images[1]])
 
-            cv2.imshow('cam0', self.raw_images[0])
-            cv2.imshow('cam1', self.raw_images[1])
+            cv2.imshow('concat_image', concat_image)
+            # cv2.imshow('cam1', self.raw_images[1])
             cv2.waitKey(1)
 
     def on_shutdown(self):
