@@ -7,6 +7,7 @@ from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 import numpy as np
 import message_filters
 import cv2
+import numpy as np
 
 
 class ControlCenter:
@@ -36,8 +37,12 @@ class ControlCenter:
         ]
 
         if len(self.raw_images) == 2:
+            # Convert source image to unsigned 8 bit integer Numpy array
+            L = np.uint8(self.raw_images[1])
+            R = np.uint8(self.raw_images[0])
+
             stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
-            disparity = stereo.compute(self.raw_images[0], self.raw_images[1])
+            disparity = stereo.compute(L, R)
 
             cv2.imshow('cam0', self.raw_images[0])
             cv2.imshow('cam1', self.raw_images[1])
