@@ -17,17 +17,37 @@ class ControlCenter:
 
         self.bridge = CvBridge()
 
-        self.subs = rospy.Subscriber(f"/cam0/image_raw/compressed", CompressedImage, self.callback)
+        self.subs = (message_filters.Subscriber(
+            f"/cam0/image_raw/compressed",
+            CompressedImage
+        ), message_filters.Subscriber(
+            f"/cam1/image_raw/compressed",
+            CompressedImage
+        ))
         
-
-    def callback(self, compressed):
-        # Convert compressed image to OpenCV format
-        cam0_image_cv = self.bridge.compressed_imgmsg_to_cv2(compressed)
-
-        # Display the image
-        cv2.imshow('cam0_image', cam0_image_cv)
-        cv2.waitKey(1)
+        self.ts = message_filters.ApproximateTimeSynchronizer(self.subs, 1, 1)
+        self.ts.registerCallback(self.callback)
+        rospy.on_shutdown(self.on_shutdown)
             
+    def callback(self, *compresseds):
+        self.raw_images = [
+            self.bridge.compressed_imgmsg_to_cv2(compressed)
+            for compressed in compresseds
+        ]
+
+        for i in len(self.raw_images):
+            # Display the image
+            cv2.imshow(f"Image {i}", self.raw_images[i])
+            cv2.waitKey(1)
+
+        if len(self.raw_images) == 2:
+            stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
+            disparity = stereo.compute(self.raw_images[0], self.raw_images[1])
+            cv2.imshow('depth', disparity)
+            cv2.waitKey(1)
+
+    def on_shutdown(self):
+        self.writer.release()
 
 def main():
     rospy.init_node('remote_driving_node')
