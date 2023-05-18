@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     ros-${ROS_DISTRO}-cv-bridge \
     ros-${ROS_DISTRO}-image-transport \
     ros-${ROS_DISTRO}-usb-cam \
+    ros-${ROS_DISTRO}-stereo_image_proc \
     ros-${ROS_DISTRO}-husky-*
 
 # Source the ROS workspace

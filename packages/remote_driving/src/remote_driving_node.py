@@ -32,7 +32,7 @@ class ControlCenter:
             
     def callback(self, *compresseds):
         self.raw_images = [
-            self.bridge.compressed_imgmsg_to_cv2(compressed)
+            self.bridge.compressed_imgmsg_to_cv2(compressed, "yuyv")
             for compressed in compresseds
         ]
 
